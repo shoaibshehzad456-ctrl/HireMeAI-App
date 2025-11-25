@@ -13,7 +13,6 @@ st.set_page_config(
 # --- Custom CSS (Premium Navy/White Theme) ---
 st.markdown("""
 <style>
-    /* Global Font & Colors */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
     
     html, body, [class*="css"] {
@@ -22,12 +21,10 @@ st.markdown("""
         color: #1e293b;
     }
 
-    /* Hide Streamlit Branding */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
 
-    /* Custom Navbar */
     .nav-container {
         display: flex;
         justify-content: space-between;
@@ -47,7 +44,6 @@ st.markdown("""
         color: #4f46e5; 
     }
 
-    /* Navigation Buttons */
     .nav-button {
         background: transparent !important;
         color: #64748b !important;
@@ -60,7 +56,6 @@ st.markdown("""
         background: #f8fafc !important;
     }
 
-    /* Cards & Containers */
     .stButton > button {
         border-radius: 0.75rem;
         font-weight: 600;
@@ -68,7 +63,6 @@ st.markdown("""
         padding: 12px 24px;
     }
     
-    /* Primary Button Style (Indigo) */
     .primary-btn button {
         background-color: #4f46e5 !important;
         color: white !important;
@@ -81,7 +75,6 @@ st.markdown("""
         box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
     }
 
-    /* Secondary Button Style */
     .secondary-btn button {
         background-color: white !important;
         color: #374151 !important;
@@ -94,7 +87,6 @@ st.markdown("""
         transform: translateY(-1px);
     }
 
-    /* Feature Cards */
     .feature-card {
         background: white;
         border: 1px solid #f1f5f9;
@@ -126,7 +118,6 @@ st.markdown("""
         line-height: 1.5;
     }
 
-    /* Hero Section */
     .hero-title {
         font-size: 3.5rem;
         font-weight: 700;
@@ -143,35 +134,16 @@ st.markdown("""
     .accent-text {
         color: #4f46e5;
     }
-            /* Home Page Buttons Fix */
-.stButton > button {
-    min-height: 50px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    white-space: nowrap !important;
-}
 
-/* Ensure all buttons have same height */
-[data-testid="baseButton-secondary"] {
-    min-height: 50px !important;
-}
-
-[data-testid="baseButton-primary"] {
-    min-height: 50px !important;
-}
-
-            /* Simple Button Fix */
-.stButton > button {
-    min-height: 60px !important;
-    font-size: 14px !important;
-    line-height: 1.2 !important;
-    padding: 10px 5px !important;
-    white-space: normal !important;
-    word-wrap: break-word !important;
-}
+    .stButton > button {
+        min-height: 60px !important;
+        font-size: 14px !important;
+        line-height: 1.2 !important;
+        padding: 10px 5px !important;
+        white-space: normal !important;
+        word-wrap: break-word !important;
+    }
             
-    /* Footer */
     .footer {
         text-align: center;
         padding: 2rem;
@@ -181,7 +153,6 @@ st.markdown("""
         margin-top: 4rem;
     }
 
-    /* Utility Classes */
     .text-center { text-align: center; }
     .mt-2 { margin-top: 2rem; }
     .mb-2 { margin-bottom: 2rem; }
@@ -197,8 +168,6 @@ if 'improvements' not in st.session_state:
     st.session_state.improvements = []
 if 'job_results' not in st.session_state:
     st.session_state.job_results = None
-if 'show_success_message' not in st.session_state:
-    st.session_state.show_success_message = False
 
 # --- Navigation Component ---
 def render_navbar():
@@ -208,21 +177,24 @@ def render_navbar():
     with col2:
         if st.button("Home", key="nav_home", use_container_width=True): 
             st.session_state.page = 'HOME'
+            st.rerun()
     with col3:
         if st.button("Analysis", key="nav_analysis", use_container_width=True): 
             st.session_state.page = 'ANALYSIS'
+            st.rerun()
     with col4:
         if st.button("Templates", key="nav_templates", use_container_width=True): 
             st.session_state.page = 'TEMPLATES'
+            st.rerun()
     with col5:
         if st.button("Jobs", key="nav_jobs", use_container_width=True): 
             st.session_state.page = 'JOBS'
+            st.rerun()
     
     st.markdown("<div style='height: 1px; background: #e2e8f0; margin-top: 10px; margin-bottom: 20px;'></div>", unsafe_allow_html=True)
 
 render_navbar()
 
-# --- Helper: Render HTML Template ---
 # --- Helper: Render HTML Template ---
 def get_template_html(template_id, data):
     name = data.get('name', 'Candidate Name')
@@ -313,16 +285,13 @@ def get_template_html(template_id, data):
     return "<div>Template not found</div>"
 
 # --- VIEW: HOME ---
-
 if st.session_state.page == 'HOME':
     
-    # Hero Section
     col1, col2 = st.columns([1, 1])
     with col1:
         st.markdown('<div class="hero-title">Professional Resumes<br><span class="accent-text">Built by Intelligence</span></div>', unsafe_allow_html=True)
         st.markdown('<div class="hero-subtitle">Upload your CV, get AI-powered improvements, apply premium templates, and match with top-tier jobs instantly.</div>', unsafe_allow_html=True)
         
-        # Buttons - FIXED SIZE & ALIGNMENT
         btn_col1, btn_col2, btn_col3 = st.columns([1, 1, 1])
         with btn_col1:
             st.markdown('<div class="primary-btn">', unsafe_allow_html=True)
@@ -344,7 +313,6 @@ if st.session_state.page == 'HOME':
             st.markdown('</div>', unsafe_allow_html=True)
 
     with col2:
-        # Hero Image/Illustration
         st.markdown("""
         <div style="text-align: center; padding: 2rem;">
             <div style="background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); border-radius: 1rem; padding: 3rem; color: white;">
@@ -354,7 +322,6 @@ if st.session_state.page == 'HOME':
         </div>
         """, unsafe_allow_html=True)
 
-    # Features Section
     st.markdown("<br><br>", unsafe_allow_html=True)
     st.markdown("### How It Works")
     
@@ -387,7 +354,6 @@ if st.session_state.page == 'HOME':
         </div>
         """, unsafe_allow_html=True)
 
-    # Footer
     st.markdown("""
     <div class="footer">
         © 2024 HireMe AI. All rights reserved.
@@ -398,59 +364,55 @@ if st.session_state.page == 'HOME':
 elif st.session_state.page == 'ANALYSIS':
     st.title("Resume Analysis")
     
-    # Upload Section
     uploaded_file = st.file_uploader("Upload your Resume (PDF or Image)", type=['pdf', 'png', 'jpg', 'jpeg'])
     
     if uploaded_file and not st.session_state.resume_data:
         st.markdown('<div class="primary-btn">', unsafe_allow_html=True)
         if st.button("Analyze Resume", use_container_width=True):
-            with st.spinner("Analyzing with Gemini 2.5..."):
-                bytes_data = uploaded_file.getvalue()
-                mime_type = uploaded_file.type
-                result = analyze_resume(bytes_data, mime_type)
-                if result:
-                    st.session_state.resume_data = result
-                    st.rerun()
-                else:
-                    st.error("Analysis failed. Please try again.")
+            with st.spinner("Analyzing with Gemini AI..."):
+                try:
+                    bytes_data = uploaded_file.getvalue()
+                    mime_type = uploaded_file.type
+                    
+                    st.info(f"📄 Processing: {uploaded_file.name} ({mime_type}, {len(bytes_data)} bytes)")
+                    
+                    result = analyze_resume(bytes_data, mime_type)
+                    
+                    if result:
+                        st.session_state.resume_data = result
+                        st.success("✅ Analysis complete!")
+                        st.rerun()
+                    else:
+                        st.error("❌ Analysis failed. Please check terminal for details.")
+                except Exception as e:
+                    st.error(f"❌ Error occurred: {e}")
+                    import traceback
+                    with st.expander("See error details"):
+                        st.code(traceback.format_exc())
         st.markdown('</div>', unsafe_allow_html=True)
     
-    # Results Section
     if st.session_state.resume_data:
         data = st.session_state.resume_data
         
-        # Reset Button
         if st.button("Upload New Resume"):
             st.session_state.resume_data = None
             st.session_state.improvements = []
             st.rerun()
 
-        # Editable Fields - FIXED VERSION
         with st.expander("✏️ Edit Profile Details", expanded=True):
-            # Create a form to handle the save functionality
             with st.form("edit_profile_form"):
-                new_name = st.text_input("Candidate Name", 
-                                       value=data.get('name', ''), 
-                                       key="edit_name")
-                new_role = st.text_input("Target Role", 
-                                       value=data.get('suggestedRole', ''), 
-                                       key="edit_role")
-                new_summary = st.text_area("Professional Summary", 
-                                         value=data.get('summary', ''), 
-                                         height=150, 
-                                         key="edit_summary")
+                new_name = st.text_input("Candidate Name", value=data.get('name', ''), key="edit_name")
+                new_role = st.text_input("Target Role", value=data.get('suggestedRole', ''), key="edit_role")
+                new_summary = st.text_area("Professional Summary", value=data.get('summary', ''), height=150, key="edit_summary")
                 
-                # Save Changes Button inside form
                 submitted = st.form_submit_button("💾 Save Changes")
                 
-            # Handle form submission
             if submitted:
                 st.session_state.resume_data['name'] = new_name
                 st.session_state.resume_data['suggestedRole'] = new_role
                 st.session_state.resume_data['summary'] = new_summary
                 st.success("✅ Changes saved successfully!")
 
-        # Score & Highlights
         col1, col2 = st.columns([1, 2])
         with col1:
             score = data.get('score', 0)
@@ -467,13 +429,11 @@ elif st.session_state.page == 'ANALYSIS':
             for s in data.get('strengths', []):
                 st.success(s)
 
-        # Weaknesses & Improvements
         st.markdown("### Areas for Improvement")
         weaknesses = data.get('weaknesses', [])
         
-        for i, w in enumerate(weaknesses):
-            with st.container():
-                st.warning(w)
+        for w in weaknesses:
+            st.warning(w)
         
         if not st.session_state.improvements and weaknesses:
             if st.button("✨ Generate AI Improvements", key="generate_improvements"):
@@ -488,7 +448,6 @@ elif st.session_state.page == 'ANALYSIS':
                 st.info(f"💡 {imp}")
 
 # --- VIEW: TEMPLATES ---
-
 elif st.session_state.page == 'TEMPLATES':
     st.title("Premium Templates")
     
@@ -499,69 +458,54 @@ elif st.session_state.page == 'TEMPLATES':
             st.rerun()
     else:
         st.markdown("### Choose a Template Style")
-        st.markdown("Select a template to preview your resume with professional formatting.")
         
         col1, col2, col3 = st.columns(3)
         
         template_choice = None
         
         with col1:
-            st.markdown("""
-            <div style="text-align: center; margin-bottom: 20px;">
-                <h3>Modern Tech</h3>
-            </div>
-            """, unsafe_allow_html=True)
+            st.markdown("<h3 style='text-align: center;'>Modern Tech</h3>", unsafe_allow_html=True)
             st.image("https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&q=80&w=400&h=300", 
-                    caption="Clean & Professional", use_container_width=True)  # CHANGE HERE
+                    caption="Clean & Professional", use_container_width=True)
             if st.button("Select Modern", key="modern_btn", use_container_width=True): 
                 template_choice = "modern"
         
         with col2:
-            st.markdown("""
-            <div style="text-align: center; margin-bottom: 20px;">
-                <h3>Executive Pro</h3>
-            </div>
-            """, unsafe_allow_html=True)
+            st.markdown("<h3 style='text-align: center;'>Executive Pro</h3>", unsafe_allow_html=True)
             st.image("https://images.unsplash.com/photo-1586282391129-76a6df840fd0?auto=format&fit=crop&q=80&w=400&h=300", 
-                    caption="Elegant & Corporate", use_container_width=True)  # CHANGE HERE
+                    caption="Elegant & Corporate", use_container_width=True)
             if st.button("Select Executive", key="executive_btn", use_container_width=True): 
                 template_choice = "executive"
 
         with col3:
-            st.markdown("""
-            <div style="text-align: center; margin-bottom: 20px;">
-                <h3>Creative</h3>
-            </div>
-            """, unsafe_allow_html=True)
+            st.markdown("<h3 style='text-align: center;'>Creative</h3>", unsafe_allow_html=True)
             st.image("https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?auto=format&fit=crop&q=80&w=400&h=300", 
-                    caption="Modern & Creative", use_container_width=True)  # CHANGE HERE
+                    caption="Modern & Creative", use_container_width=True)
             if st.button("Select Creative", key="creative_btn", use_container_width=True): 
                 template_choice = "creative"
 
         if template_choice:
             st.session_state.selected_template = template_choice
-            st.success(f"✅ {template_choice.title()} template selected! Preview below.")
+            st.success(f"✅ {template_choice.title()} template selected!")
 
         if 'selected_template' in st.session_state:
             st.markdown("---")
             st.subheader("Live Preview")
-            st.info("💡 To download: Right-click inside the preview area → Print → Save as PDF")
+            st.info("💡 To download: Right-click → Print → Save as PDF")
             
             html_content = get_template_html(st.session_state.selected_template, st.session_state.resume_data)
             st.components.v1.html(html_content, height=1000, scrolling=True)
 
 # --- VIEW: JOBS ---
-
 elif st.session_state.page == 'JOBS':
     st.title("Smart Job Matching")
     
     if not st.session_state.resume_data:
-        st.warning("⚠️ Please analyze your resume first to get personalized job matches!")
+        st.warning("⚠️ Please analyze your resume first!")
         if st.button("Go to Analysis"):
             st.session_state.page = 'ANALYSIS'
             st.rerun()
     else:
-        # User's Profile Summary
         st.subheader("🎯 Your Profile Summary")
         data = st.session_state.resume_data
         
@@ -572,60 +516,37 @@ elif st.session_state.page == 'JOBS':
             st.metric("Skills Found", len(data.get('skillsFound', [])))
         with col3:
             score = data.get('score', 0)
-            color = "green" if score > 70 else "orange" if score > 40 else "red"
             st.metric("Resume Score", f"{score}/100")
         
-        # Auto-filled Job Search based on resume
         st.subheader("🔍 Find Jobs Matching Your Profile")
         
         with st.form("job_search"):
-            # Auto-fill from resume data
             default_role = data.get('suggestedRole', '')
-            skills = data.get('skillsFound', [])
-            
-            # SIMPLIFIED QUERY - Only use clean job title
-            smart_query = default_role
             
             c1, c2, c3 = st.columns([2, 1, 1])
             with c1:
-                query = st.text_input("Job Title", value=smart_query, 
-                                    placeholder="e.g. Frontend Developer")
-                st.caption("💡 Based on your resume analysis")
+                query = st.text_input("Job Title", value=default_role, placeholder="e.g. Frontend Developer")
             with c2:
-                loc = st.text_input("Location", placeholder="e.g. Remote, New York")
+                loc = st.text_input("Location", placeholder="e.g. Remote")
             with c3:
                 mode = st.selectbox("Job Type", ["Any", "Remote", "Hybrid", "On-site"])
-            
-            # Smart search suggestions
-            with st.expander("💡 Search Options"):
-                st.write(f"**Your Skills:** {', '.join(skills[:5])}")
-                st.write("**Try these variations:**")
-                if default_role:
-                    st.write(f"- `{default_role}`")
-                    st.write(f"- `{default_role} {loc if loc else 'Remote'}`")
-                    if skills:
-                        st.write(f"- `{skills[0]} Developer`")
             
             search_submitted = st.form_submit_button("🚀 Find Matching Jobs")
         
         if search_submitted:
-            with st.spinner("🔍 Searching for jobs that match your profile..."):
-                # Use only the clean job title for search
-                clean_query = query.split(',')[0].split(' with ')[0].strip()
-                results = find_jobs(clean_query, loc, mode)
+            with st.spinner("🔍 Searching..."):
+                results = find_jobs(query, loc, mode)
                 st.session_state.job_results = results
         
         if st.session_state.job_results:
             res = st.session_state.job_results
             
-            # AI Summary
             with st.expander("📊 AI Job Market Insights", expanded=True):
                 st.write(res['text'])
             
-            # Job Cards
             st.subheader(f"🎯 Found {len(res['sources'])} Opportunities")
             
-            for i, job in enumerate(res['sources']):
+            for job in res['sources']:
                 st.markdown(f"""
                 <div style="padding: 20px; background: white; border-radius: 10px; border: 1px solid #e2e8f0; margin-bottom: 15px;">
                     <h3 style="margin: 0; color: #1e293b;">{job['title']}</h3>
@@ -633,19 +554,3 @@ elif st.session_state.page == 'JOBS':
                     <a href="{job['url']}" target="_blank" style="display: inline-block; margin-top: 10px; text-decoration: none; color: #4f46e5; font-weight: 600;">View Job &rarr;</a>
                 </div>
                 """, unsafe_allow_html=True)
-        
-        # Manual override option
-        st.markdown("---")
-        st.subheader("🔧 Not Finding Right Jobs?")
-        st.warning("If the auto-detected role doesn't match your expectations, you can:")
-        
-        col1, col2 = st.columns(2)
-        with col1:
-            if st.button("✏️ Edit My Target Role", use_container_width=True):
-                st.session_state.page = 'ANALYSIS'
-                st.rerun()
-        with col2:
-            if st.button("🔄 Re-analyze Resume", use_container_width=True):
-                st.session_state.resume_data = None
-                st.session_state.page = 'ANALYSIS'
-                st.rerun()
